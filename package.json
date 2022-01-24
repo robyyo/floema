@@ -41,5 +41,7 @@
     "webpack-dev-server": "^4.7.3",
     "webpack-merge": "^5.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.2"
+  }
 }
