@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
-
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin'); //copies webpack files from one place to another
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //extracts css from js files *not that important*
 
@@ -33,6 +34,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [
@@ -77,6 +79,7 @@ module.exports = {
     ],
   },
   optimization: {
+    minimize: true,
     minimizer: [
       new ImageMinimizerPlugin({
         minimizer: {
@@ -90,6 +93,7 @@ module.exports = {
           },
         },
       }),
+      new TerserPlugin(),
     ],
   },
 };
