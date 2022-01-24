@@ -2,8 +2,9 @@
   "name": "floema",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --progress --config webpack.config.build.js",
-    "development": "webpack serve --progress --config webpack.config.development.js",
+    "backend:build": "nodemon app.js",
+    "frontend:build": "webpack --progress --config webpack.config.build.js",
+    "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "start": "npm run development"
   },
   "author": "Robyyo",
@@ -28,6 +29,7 @@
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
     "mini-css-extract-plugin": "^2.5.2",
+    "nodemon": "^2.0.15",
     "postcss-loader": "^6.2.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.49.0",
@@ -42,6 +44,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "pug": "^3.0.2"
   }
 }
