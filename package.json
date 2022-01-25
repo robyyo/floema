@@ -5,7 +5,7 @@
     "backend:build": "nodemon app.js",
     "frontend:build": "webpack --progress --config webpack.config.build.js",
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
-    "start": "npm run development"
+    "start": "concurrently \"npm run backend:build\" \"npm run frontend:build\""
   },
   "author": "Robyyo",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "@babel/core": "^7.16.12",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
     "eslint": "^8.7.0",
