@@ -45,6 +45,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "pug": "^3.0.2"
   }

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 
@@ -10,12 +11,15 @@ app.set('view engine', 'pug');
 app.get('/', (req, res) => {
   res.render('pages/home');
 });
+
 app.get('/about', (req, res) => {
   res.render('pages/about');
 });
+
 app.get('/detail/:uid', (req, res) => {
   res.render('pages/detail');
 });
+
 app.get('/collections', (req, res) => {
   res.render('pages/collections');
 });
