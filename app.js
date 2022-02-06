@@ -57,7 +57,7 @@ app.get('/detail/:uid', (req, res) => {
 });
 
 app.get('/collections', (req, res) => {
-  res.render('pages/collections');
+  res.render('pages/collection');
 });
 
 app.listen(port, () => {
