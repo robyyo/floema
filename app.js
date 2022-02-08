@@ -68,7 +68,7 @@ app.get('/detail/:uid', async (req, res) => {
 });
 
 app.get('/collections', (req, res) => {
-  res.render('pages/collection');
+  res.render('pages/collections');
 });
 
 app.listen(port, () => {
