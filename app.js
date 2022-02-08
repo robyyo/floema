@@ -38,8 +38,14 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.get('/', (req, res) => {
-  res.render('pages/home');
+app.get('/', async (req, res) => {
+  const document = await client.get({
+    predicates: [prismic.predicate.any('document.type', ['meta', 'home'])],
+  });
+  const { results } = document;
+  console.log(results);
+  const [meta, home] = results;
+  res.render('pages/home', { meta, home });
 });
 
 app.get('/about', async (req, res) => {
