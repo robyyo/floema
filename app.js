@@ -52,8 +52,13 @@ app.get('/about', async (req, res) => {
   res.render('pages/about', { meta, about });
 });
 
-app.get('/detail/:uid', (req, res) => {
-  res.render('pages/detail');
+app.get('/detail/:uid', async (req, res) => {
+  const meta = await client.getSingle('meta');
+  const product = await client.getByUID('product', req.params.uid, {
+    fetchLinks: 'collection.title',
+  });
+  console.log(product.data);
+  res.render('pages/detail', { meta, product });
 });
 
 app.get('/collections', (req, res) => {
