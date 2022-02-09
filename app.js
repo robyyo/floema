@@ -42,8 +42,9 @@ app.get('/', async (req, res) => {
   const document = await client.get({
     predicates: [prismic.predicate.any('document.type', ['meta', 'home'])],
   });
+
   const { results } = document;
-  console.log(results);
+  
   const [meta, home] = results;
   res.render('pages/home', { meta, home });
 });
