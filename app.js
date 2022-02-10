@@ -44,7 +44,7 @@ app.get('/', async (req, res) => {
   });
 
   const { results } = document;
-  
+
   const [meta, home] = results;
   res.render('pages/home', { meta, home });
 });
@@ -68,8 +68,14 @@ app.get('/detail/:uid', async (req, res) => {
   res.render('pages/detail', { meta, product });
 });
 
-app.get('/collections', (req, res) => {
-  res.render('pages/collections');
+app.get('/collections', async (req, res) => {
+  const meta = await client.getSingle('meta');
+  const collections = await client.getAllByType('collection', {
+    fetchLinks: 'product.image',
+  });
+  console.log(collections);
+  console.log(meta);
+  res.render('pages/collections', { meta, collections });
 });
 
 app.listen(port, () => {
