@@ -73,9 +73,10 @@ app.get('/collections', async (req, res) => {
   const collections = await client.getAllByType('collection', {
     fetchLinks: 'product.image',
   });
-  console.log(collections[0].data.products[0].products_product.data);
+  const home = await client.getSingle('home');
+  console.log(collections[0]);
   console.log(meta);
-  res.render('pages/collections', { meta, collections });
+  res.render('pages/collections', { meta, collections, home });
 });
 
 app.listen(port, () => {
