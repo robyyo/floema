@@ -4,6 +4,9 @@ const prismic = require('@prismicio/client');
 const prismicH = require('@prismicio/helpers');
 const fetch = require('node-fetch');
 const path = require('path');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
 const repoName = process.env.PRIMISC_REPO; // Fill in your repository name.
@@ -28,10 +31,17 @@ const handleLinkResolver = (doc) => {
   return '/';
 };
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride());
+
 app.use((req, res, next) => {
   res.locals.ctx = {
     prismicH,
   };
+
+  res.locals.link = handleLinkResolver;
 
   res.locals.Numbers = (index) => {
     return index === 0
@@ -52,24 +62,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.get('/', async (req, res) => {
-  const document = await client.get({
-    predicates: [prismic.predicate.any('document.type', ['meta', 'home'])],
-  });
-
-  const { results } = document;
-
-  const [meta, home] = results;
-  res.render('pages/home', { meta, home });
+  const home = await client.getSingle('home');
+  const meta = await client.getSingle('meta');
+  const preloader = await client.getSingle('preloader');
+  res.render('pages/home', { meta, home, preloader });
 });
 
 app.get('/about', async (req, res) => {
-  const document = await client.get({
-    predicates: [prismic.predicate.any('document.type', ['meta', 'about'])],
-  });
-  const { results } = document;
-  const [meta, about] = results;
-  console.log(meta, about);
-  res.render('pages/about', { meta, about });
+  const about = await client.getSingle('about');
+  const meta = await client.getSingle('meta');
+  const preloader = await client.getSingle('preloader');
+  res.render('pages/about', { meta, about, preloader });
 });
 
 app.get('/detail/:uid', async (req, res) => {
@@ -77,8 +80,8 @@ app.get('/detail/:uid', async (req, res) => {
   const product = await client.getByUID('product', req.params.uid, {
     fetchLinks: 'collection.title',
   });
-  console.log(product.data);
-  res.render('pages/detail', { meta, product });
+  const preloader = await client.getSingle('preloader');
+  res.render('pages/detail', { meta, product, preloader });
 });
 
 app.get('/collections', async (req, res) => {
@@ -87,9 +90,8 @@ app.get('/collections', async (req, res) => {
     fetchLinks: 'product.image',
   });
   const home = await client.getSingle('home');
-  console.log(collections[0]);
-  console.log(meta);
-  res.render('pages/collections', { meta, collections, home });
+  const preloader = await client.getSingle('preloader');
+  res.render('pages/collections', { meta, collections, home, preloader });
 });
 
 app.listen(port, () => {
