@@ -64,8 +64,11 @@ app.set('view engine', 'pug');
 app.get('/', async (req, res) => {
   const home = await client.getSingle('home');
   const meta = await client.getSingle('meta');
+  const collections = await client.getAllByType('collection', {
+    fetchLinks: 'product.image',
+  });
   const preloader = await client.getSingle('preloader');
-  res.render('pages/home', { meta, home, preloader });
+  res.render('pages/home', { meta, home, collections, preloader });
 });
 
 app.get('/about', async (req, res) => {
@@ -95,5 +98,5 @@ app.get('/collections', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });
