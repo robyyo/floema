@@ -1,11 +1,11 @@
 require('dotenv').config();
+const logger = require('morgan');
 const express = require('express');
 const prismic = require('@prismicio/client');
 const prismicH = require('@prismicio/helpers');
 const fetch = require('node-fetch');
 const path = require('path');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
 const methodOverride = require('method-override');
 const app = express();
 const port = 3000;
