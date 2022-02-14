@@ -33,6 +33,17 @@ const handleLinkResolver = (doc) => {
   return '/';
 };
 
+const handleRequest = async () => {
+  const meta = await client.getSingle('meta');
+  const navigation = await client.getSingle('navigation');
+  const preloader = await client.getSingle('preloader');
+  return {
+    meta,
+    navigation,
+    preloader,
+  };
+};
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -64,39 +75,40 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.get('/', async (req, res) => {
+  const defaults = await handleRequest();
   const home = await client.getSingle('home');
-  const meta = await client.getSingle('meta');
   const collections = await client.getAllByType('collection', {
     fetchLinks: 'product.image',
   });
-  const preloader = await client.getSingle('preloader');
-  res.render('pages/home', { meta, home, collections, preloader });
+
+  res.render('pages/home', { ...defaults, home, collections });
 });
 
 app.get('/about', async (req, res) => {
+  const defaults = await handleRequest();
   const about = await client.getSingle('about');
-  const meta = await client.getSingle('meta');
-  const preloader = await client.getSingle('preloader');
-  res.render('pages/about', { meta, about, preloader });
+  res.render('pages/about', { ...defaults, about });
 });
 
 app.get('/detail/:uid', async (req, res) => {
-  const meta = await client.getSingle('meta');
+  const defaults = await handleRequest();
   const product = await client.getByUID('product', req.params.uid, {
     fetchLinks: 'collection.title',
   });
-  const preloader = await client.getSingle('preloader');
-  res.render('pages/detail', { meta, product, preloader });
+  res.render('pages/detail', { ...defaults, product });
 });
 
 app.get('/collections', async (req, res) => {
-  const meta = await client.getSingle('meta');
+  const defaults = await handleRequest();
   const collections = await client.getAllByType('collection', {
     fetchLinks: 'product.image',
   });
   const home = await client.getSingle('home');
-  const preloader = await client.getSingle('preloader');
-  res.render('pages/collections', { meta, collections, home, preloader });
+  res.render('pages/collections', {
+    ...defaults,
+    collections,
+    home,
+  });
 });
 
 app.listen(port, () => {
