@@ -27,9 +27,9 @@ const client = prismic.createClient(endpoint, {
 
 const handleLinkResolver = (doc) => {
   // if (doc.type === 'page') return `/${doc.lang}/${doc.uid}`;
-  // if (doc.type === 'homepage') return `/${doc.lang}`;
   if (doc.type === 'product') return `/detail/${doc.slug}`;
   if (doc.type === 'about') return `/about`;
+  if (doc.type === 'collections') return `/collections`;
   return '/';
 };
 
@@ -80,7 +80,7 @@ app.get('/', async (req, res) => {
   const collections = await client.getAllByType('collection', {
     fetchLinks: 'product.image',
   });
-
+  console.log(defaults);
   res.render('pages/home', { ...defaults, home, collections });
 });
 
