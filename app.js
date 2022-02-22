@@ -25,31 +25,11 @@ const client = prismic.createClient(endpoint, {
   routes,
 });
 
-const handleLinkResolver = (doc) => {
-  // if (doc.type === 'page') return `/${doc.lang}/${doc.uid}`;
-  if (doc.type === "product") return `/detail/${doc.slug}`;
-  if (doc.type === "about") return `/about`;
-  if (doc.type === "collections") return `/collections`;
-  return "/";
-};
-
-const handleRequest = async () => {
-  const meta = await client.getSingle("meta");
-  const navigation = await client.getSingle("navigation");
-  const preloader = await client.getSingle("preloader");
-  return {
-    meta,
-    navigation,
-    preloader,
-  };
-};
-
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride());
-
 app.use((req, res, next) => {
   res.locals.ctx = {
     prismicH,
@@ -71,6 +51,26 @@ app.use((req, res, next) => {
 
   next();
 });
+
+const handleLinkResolver = (doc) => {
+  // if (doc.type === 'page') return `/${doc.lang}/${doc.uid}`;
+  if (doc.type === "product") return `/detail/${doc.slug}`;
+  if (doc.type === "about") return `/about`;
+  if (doc.type === "collections") return `/collections`;
+  return "/";
+};
+
+const handleRequest = async () => {
+  const meta = await client.getSingle("meta");
+  const navigation = await client.getSingle("navigation");
+  const preloader = await client.getSingle("preloader");
+  return {
+    meta,
+    navigation,
+    preloader,
+  };
+};
+
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
