@@ -1,8 +1,16 @@
 .preloader {
+  @extend %cover;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .preloader__text {
 }
 
 .preloader__number {
+  bottom: 0;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
 }
