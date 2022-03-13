@@ -1,10 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); //copies webpack files from one place to another
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //extracts css from js files *not that important*
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin'); //copies webpack files from one place to another
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //extracts css from js files *not that important*
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
