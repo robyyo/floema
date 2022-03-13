@@ -4,7 +4,10 @@
 @import './utils/mixins';
 @import './utils/vendors';
 @import './utils/responsive';
+
+//importing shared styles
 @import './shared/descriptions';
+@import './shared/titles';
 
 //importing reset, fonts and base styles
 @import './base/reset';
