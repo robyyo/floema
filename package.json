@@ -5,7 +5,8 @@
     "backend:build": "nodemon app.js",
     "frontend:build": "webpack --progress --watch --config webpack.config.build.js",
     "frontend:development": "webpack serve --open --progress --config webpack.config.development.js",
-    "start": "concurrently \"npm run backend:build\" \"npm run frontend:build\""
+    "start": "concurrently \"npm run backend:build\" \"npm run frontend:build\"",
+    "development": "concurrently \"npm run backend:build\" \"npm run frontend:development\""
   },
   "author": "Robyyo",
   "license": "ISC",
