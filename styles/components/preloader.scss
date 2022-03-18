@@ -3,7 +3,8 @@
   background-color: $color-contessa;
   color: $color-white;
   align-items: center;
-  display: flex;
+  // display: flex; - commented out while developing other elements
+  display: none; // hiding the preloader while developing other elements
   justify-content: center;
   text-align: center;
 }
@@ -15,7 +16,6 @@
 
 .preloader__number {
   @extend %description-14;
-
   bottom: 7.3rem;
   left: 50%;
   position: absolute;
