@@ -1,5 +1,7 @@
 .preloader {
   @extend %cover;
+  background-color: $color-contessa;
+  color: $color-white;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -13,6 +15,7 @@
 
 .preloader__number {
   @extend %description-14;
+
   bottom: 7.3rem;
   left: 50%;
   position: absolute;
