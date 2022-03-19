@@ -1,11 +1,9 @@
 .preloader {
+  @extend %center;
   @extend %cover;
   background-color: $color-contessa;
   color: $color-white;
-  align-items: center;
-  // display: flex; - commented out while developing other elements
   display: none; // hiding the preloader while developing other elements
-  justify-content: center;
   text-align: center;
 }
 
